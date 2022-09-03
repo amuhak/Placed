@@ -50,6 +50,12 @@ while True:
     print("Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs")
     print(Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs)
     in1=[[Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs]]
-    test=model.predict(in1)
-    print(test)
+    temp=model.predict(in1)
+    temp1=temp[0]
+    if(temp1[0]>temp1[1]):
+        print("""Won't get placed
+        probability= """,temp1[0])
+    else:
+        print("""Will get placed
+        probability= """,temp1[1])
     #first value is false second true
