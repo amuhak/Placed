@@ -35,19 +35,21 @@ print(df['PlacedOrNot'].value_counts())
 y_values = df['PlacedOrNot']
 y_values = to_categorical(y_values)
 #print(y_values)
+epochs=int(input("Enter no of epochs "))
 print("TRAINING")
-model.fit(x_values,y_values,epochs=100,shuffle=True, batch_size=1)
+model.fit(x_values,y_values,epochs=epochs,shuffle=True, batch_size=1)
 #may take a long time
-
-Age=int(input("enter age (int value) "))
-Gender=int(input("enter gender (int value) ")) #0==male,1==female
-Stream=int(input("enter stream (int vaue) "))
-Internships=int(input("enter internships (int vaue) "))
-CGPA=int(input("enter stream(int vaue) "))
-Hostel=int(input("enter Hostel(int vaue) "))
-HistoryOfBacklogs=int(input("enter if HistoryOfBacklogs(int vaue) "))
-print("Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs")
-print(Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs)
-in1=[[Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs]]
-model.predict(in1)
-#first value is false second true
+while True:
+    Age=int(input("enter age (int value) "))
+    Gender=int(input("enter gender (int value) ")) #0==male,1==female
+    Stream=int(input("enter stream (int vaue) "))
+    Internships=int(input("enter internships (int vaue) "))
+    CGPA=int(input("enter stream(int vaue) "))
+    Hostel=int(input("enter Hostel(int vaue) "))
+    HistoryOfBacklogs=int(input("enter if HistoryOfBacklogs(int vaue) "))
+    print("Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs")
+    print(Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs)
+    in1=[[Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs]]
+    test=model.predict(in1)
+    print(test)
+    #first value is false second true
