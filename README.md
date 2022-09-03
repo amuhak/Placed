@@ -5,4 +5,4 @@ This is a very basic ai modal that predicts if one will be paced (get a job).
 
 requirements in requirements.txt
 
-pip install requirements.txt
+pip install -r requirements.txt
