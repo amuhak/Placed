@@ -44,7 +44,7 @@ while True:
     Gender=int(input("enter gender (int value) ")) #0==male,1==female
     Stream=int(input("enter stream (int vaue) "))
     Internships=int(input("enter internships (int vaue) "))
-    CGPA=int(input("enter stream(int vaue) "))
+    CGPA=int(input("enter CGPA(int vaue) "))
     Hostel=int(input("enter Hostel(int vaue) "))
     HistoryOfBacklogs=int(input("enter if HistoryOfBacklogs(int vaue) "))
     print("Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs")
