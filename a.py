@@ -40,6 +40,7 @@ print("TRAINING")
 model.fit(x_values,y_values,epochs=epochs,shuffle=True, batch_size=1)
 #may take a long time
 while True:
+    print("ENTER ONLY INT VALUES")
     Age=int(input("enter age (int value) "))
     Gender=int(input("enter gender (int value) ")) #0==male,1==female
     Stream=int(input("enter stream (int vaue) "))
@@ -53,9 +54,7 @@ while True:
     temp=model.predict(in1)
     temp1=temp[0]
     if(temp1[0]>temp1[1]):
-        print("""Won't get placed
-        probability= """,temp1[0])
+        print("""Won't get placed \nprobability= """,temp1[0])
     else:
-        print("""Will get placed
-        probability= """,temp1[1])
+        print("""Will get placed \nprobability= """,temp1[1])
     #first value is false second true
