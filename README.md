@@ -36,4 +36,4 @@ Requirements are in requirements.txt
 
 Dataset sorce: <https://www.kaggle.com/datasets/tejashvi14/engineering-placements-prediction>
 
-last tested 1 October, 2022
+Last tested 1 October, 2022
