@@ -1,4 +1,4 @@
-# needs to be trained pretrained recommended
+# needs to be trained pretrained recommended(folder)
 import tensorflow as tf
 import sklearn
 import pandas as pd
