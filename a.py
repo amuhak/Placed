@@ -1,3 +1,4 @@
+# needs to be trained pretrained recommended
 import tensorflow as tf
 import sklearn
 import pandas as pd
