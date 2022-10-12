@@ -1,4 +1,4 @@
-#pretrained
+#pretrained modal
 import tensorflow as tf
 import sklearn
 import pandas as pd
