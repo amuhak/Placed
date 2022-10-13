@@ -17,7 +17,7 @@ label_encode = {"Stream": {"Electronics And Communication":0, "Computer Science"
 df.replace(label_encode,inplace=True)
 x_values = df[["Age","Gender","Stream","Internships","CGPA","Hostel","HistoryOfBacklogs"]]
 print(x_values.head())
-#standardise = StandardScaler() 
+#standardise = StandardScaler() works better without it
 #x_values = standardise.fit_transform(x_values)
 x_values_df = pd.DataFrame(x_values)
 
