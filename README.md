@@ -32,6 +32,8 @@ python b.py
 
 The pretrained modal is pretrained to 100 epochs.
 
+activation relu
+
 Requirements are in requirements.txt
 
 Dataset sorce: <https://www.kaggle.com/datasets/tejashvi14/engineering-placements-prediction>
