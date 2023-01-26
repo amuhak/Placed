@@ -1,8 +1,8 @@
 # Placed
 
-A basic ai modal
+A basic ai model
 
-This is a very basic ai modal that predicts if one will be paced (get a job).
+This is a very basic ai model that predicts if one will be paced (get a job).
 
 ## How to
 
@@ -26,11 +26,11 @@ Or cd into pretrained and run
 python b.py
 </pre>
 
-(You would do this if you don't want to train the modal yourself)
+(You would do this if you don't want to train the model yourself)
 
 ## info 
 
-The pretrained modal is pretrained to 100 epochs.
+The pretrained model is pretrained to 100 epochs.
 
 activation relu
 
