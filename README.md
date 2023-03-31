@@ -8,6 +8,8 @@ This is a very basic ai model that predicts if one will be paced (get a job).
 
 **Recommended: use an anaconda environment (Python 3.8+)**
 
+[Install Torch](https://pytorch.org/get-started/locally/)
+
 cd into the uncompressed downloded folder
 
 <pre>
@@ -19,18 +21,7 @@ Then
 <pre>
 python a.py
 </pre>
-
-Or cd into pretrained and run
-
-<pre>
-python b.py
-</pre>
-
-(You would do this if you don't want to train the model yourself)
-
 ## info 
-
-The pretrained model is pretrained to 100 epochs.
 
 activation relu
 
