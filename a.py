@@ -1,45 +1,91 @@
-# needs to be trained pretrained recommended(folder)
-import tensorflow as tf
-import sklearn
+import torch
+import torch.nn as nn
+import torch.optim as optim
 import pandas as pd
-import numpy as np
-from sklearn.preprocessing import StandardScaler
-from tensorflow.keras.layers import Dense
-from tensorflow.keras import Sequential
-from tensorflow.keras.utils import to_categorical
-df = pd.read_csv("collegePlace.csv",header=None)
-names = ["Age","Gender","Stream","Internships","CGPA","Hostel","HistoryOfBacklogs","PlacedOrNot"]
-df.columns = names
-print(df.head())
-print(df.info())
-print(df.describe())
-label_encode = {"Stream": {"Electronics And Communication":0, "Computer Science":1, "Information Technology":2, "Civil":3, "Electrical":4, "Mechanical":5}}
-df.replace(label_encode,inplace=True)
-x_values = df[["Age","Gender","Stream","Internships","CGPA","Hostel","HistoryOfBacklogs"]]
-print(x_values.head())
-#standardise = StandardScaler() works better without it
-#x_values = standardise.fit_transform(x_values)
-x_values_df = pd.DataFrame(x_values)
+from sklearn.preprocessing import LabelEncoder, StandardScaler
+from torch.utils.data import Dataset, DataLoader
 
-model = Sequential()
-model.add(Dense(64,input_dim=7,activation='relu'))
-model.add(Dense(128,activation='relu'))
-model.add(Dense(1024,activation='relu'))
-model.add(Dense(128,activation='relu'))
-model.add(Dense(2,activation='softmax'))
-model.compile(optimizer='adam',loss='categorical_crossentropy',metrics=['accuracy'])
+# Check if CUDA is available
+device = torch.device("cpu")#cuda" if torch.cuda.is_available() else "cpu")
 
-model.summary()
+# Load the dataset
+df = pd.read_csv("collegePlace.csv", header=None)
+df.columns = ["Age","Gender","Stream","Internships","CGPA","Hostel","HistoryOfBacklogs","PlacedOrNot"]
 
-print(df['PlacedOrNot'].value_counts())
-print(df['PlacedOrNot'].value_counts())
-y_values = df['PlacedOrNot']
-y_values = to_categorical(y_values)
-#print(y_values)
-epochs=int(input("Enter no of epochs "))
-print("TRAINING")
-model.fit(x_values,y_values,epochs=epochs,shuffle=True, batch_size=1)
-#may take a long time
+# Encode the categorical variable
+le = LabelEncoder()
+df['Stream'] = le.fit_transform(df['Stream'])
+
+# Standardize the numerical features
+#scaler = StandardScaler()
+#df[["Age","CGPA","Internships"]] = scaler.fit_transform(df[["Age","CGPA","Internships"]])
+
+# Prepare the data
+class PlacedDataset(Dataset):
+    def __init__(self, data):
+        self.X = data.iloc[:, :-1].values
+        self.y = data.iloc[:, -1].values
+        self.X = torch.tensor(self.X).float()
+        self.y = torch.tensor(self.y).long()
+    
+    def __len__(self):
+        return len(self.X)
+    
+    def __getitem__(self, idx):
+        return self.X[idx], self.y[idx]
+
+# Split into training and testing data
+train_data = df.sample(frac=0.8, random_state=42)
+test_data = df.drop(train_data.index)
+
+train_dataset = PlacedDataset(train_data)
+test_dataset = PlacedDataset(test_data)
+
+train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=32, shuffle=True)
+
+# Define the model
+class PlacedModel(nn.Module):
+    def __init__(self):
+        super(PlacedModel, self).__init__()
+        self.fc1 = nn.Linear(7, 64)
+        self.fc2 = nn.Linear(64, 128)
+        self.fc3 = nn.Linear(128, 1024)
+        self.fc4 = nn.Linear(1024, 128)
+        self.fc5 = nn.Linear(128, 2)
+
+    def forward(self, x):
+        x = torch.relu(self.fc1(x))
+        x = torch.relu(self.fc2(x))
+        x = torch.relu(self.fc3(x))
+        x = torch.relu(self.fc4(x))
+        x = self.fc5(x)
+        return x
+
+model = PlacedModel().to(device)
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters())
+
+# Train the model
+n_epochs = int(input("Enter number of epochs: "))
+
+for epoch in range(n_epochs):
+    running_loss = 0.0
+    for i, data in enumerate(train_loader, 0):
+        inputs, labels = data
+        inputs, labels = inputs.to(device), labels.to(device)
+
+        optimizer.zero_grad()
+
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        loss.backward()
+        optimizer.step()
+
+        running_loss += loss.item()
+
+    print(f"Epoch {epoch+1} loss: {running_loss/len(train_loader)}")
+model.eval()
 while True:
     print("ENTER ONLY INT VALUES")
     Age=int(input("enter age (int value) "))
@@ -49,13 +95,13 @@ while True:
     CGPA=int(input("enter CGPA(int vaue) "))
     Hostel=int(input("enter Hostel(int vaue) "))
     HistoryOfBacklogs=int(input("enter if HistoryOfBacklogs(int vaue) "))
-    print("Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs")
-    print(Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs)
-    in1=[[Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs]]
-    temp=model.predict(in1)
-    temp1=temp[0]
-    if(temp1[0]>temp1[1]):
-        print("""Won't get placed \nprobability= """,temp1[0])
+    x=torch.tensor([Age,Gender,Stream,Internships,CGPA,Hostel,HistoryOfBacklogs]).float().to(device)
+    with torch.no_grad():
+        prediction = model(x)
+    print(prediction.shape)
+    if prediction[0]>prediction[1]:
+        print("YES")
+    elif prediction[1]>prediction[0]:
+        print("NO")
     else:
-        print("""Will get placed \nprobability= """,temp1[1])
-    #first value is false second true
+        print("IDK")
