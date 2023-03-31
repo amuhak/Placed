@@ -6,7 +6,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from torch.utils.data import Dataset, DataLoader
 
 # Check if CUDA is available
-device = torch.device("cpu")#cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Load the dataset
 df = pd.read_csv("collegePlace.csv", header=None)
