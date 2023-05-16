@@ -1,7 +1,5 @@
 # Placed
 
-A basic ai model
-
 This is a very basic ai model that predicts if one will be paced (get a job).
 
 ## How to
