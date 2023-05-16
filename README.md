@@ -6,8 +6,10 @@ This is a very basic ai model that predicts if one will be paced (get a job) aft
 
 **Recommended: use an anaconda environment (Python 3.8+)**
 
+Fist you will need to 
 [Install Torch](https://pytorch.org/get-started/locally/)
 
+Then,
 cd into the uncompressed downloded folder
 
 <pre>
@@ -27,4 +29,4 @@ Requirements are in requirements.txt
 
 Dataset sorce: <https://www.kaggle.com/datasets/tejashvi14/engineering-placements-prediction>
 
-Last tested 1 October, 2022
+Last tested 4th April, 2023
