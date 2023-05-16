@@ -2,6 +2,8 @@
 
 This is a very basic ai model that predicts if one will be paced (get a job) after graduating.
 
+For the GPU implmentaion, use the gpu branch.
+
 ## How to
 
 **Recommended: use an anaconda environment (Python 3.8+)**
