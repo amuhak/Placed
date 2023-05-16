@@ -1,6 +1,6 @@
 # Placed
 
-This is a very basic ai model that predicts if one will be paced (get a job).
+This is a very basic ai model that predicts if one will be paced (get a job) after graduating.
 
 ## How to
 
