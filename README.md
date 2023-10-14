@@ -2,7 +2,7 @@
 
 This is a very basic ai model that predicts if one will be paced (get a job) after graduating.
 
-For the GPU implmentaion, use the gpu branch.
+For the GPU implmentaion, use the [gpu branch](https://github.com/amuhak/Placed/tree/gpu).
 
 ## How to
 
